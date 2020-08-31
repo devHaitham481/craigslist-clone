@@ -1,0 +1,35 @@
+
+<div class="inner">
+<% if account_signed_in? %>
+<%= link_to("Sign Out", destroy_account_session_path, method: :delete) %>
+<% else %>
+<%= link_to "My Account", root_path, class: "pull-right m-l-10"%>
+
+<% end %>
+<%= link_to "New Post", new_post_path, class: "pull-right"%>
+
+<%= link_to "Home", root_path%> >>
+ 
+<% if @post.present? && !@post.new_record? 
+ category= @post.category
+ parent = category.parent
+%>
+
+<% if parent.present? %>
+<%= link_to parent.name, category_path(parent)%> >>
+<% end %>
+
+<%= link_to category.name, category_path(category) %> >>
+<%= @post.title %>
+
+<% elsif @category.present? 
+parent = @category.parent
+%>
+<% if parent.present? %>
+<%= link_to parent.name, category_path(parent)%> >>
+<% end %>
+
+<%= @category.name %>
+
+<%end%>
+</div>
