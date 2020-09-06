@@ -1,11 +1,12 @@
+            <div class="row">
             <% @categories.each do |category| %>
-            <div class="category-box">
-            <p><strong><%= link_to category.name, category_path(category) %></strong></p>
+            <div class="col-4 mb-4 category-box">
+            <p class="h6"><strong><%= link_to category.name, category_path(category.url), class: "text-dark" %></strong></p>
 
             <% category.subcategories.limit(10).each do |subcategory| %>
-                <div class= "subcat"><%= link_to subcategory.name, category_path(subcategory) %></div>
-
-            <%end%> 
+            <div class= "subcat"><%= link_to subcategory.name, category_path(subcategory) %></div>
+            <% next if subcategory.url.blank? %>
+            <% end %> 
             </div>
             <% end %>
        

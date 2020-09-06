@@ -6,28 +6,27 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_pack_tag 'application' %>
+    <%= stylesheet_link_tag '_custom', media:'all'%>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <div class="header">
-    <%= render "layouts/breadcrumb_nav"%>
-    </div>
-      <p class="notice"><%= notice %></p>
-
-      <div class= "main">
-        <div class= "main-left">
-        <p><strong><%= link_to "Craigslist Clone", root_path%></strong></p>
+      <div class= "container">
+      <div class= "row">
+        <div class= "col-3">
+        <%= link_to root_path, class: "text-dark" do %>
+        <%= image_tag "app-logo.png", width: "120px"%>
       
        
-        <p><%= link_to "Create new post", new_post_path%><p></br>
+        <p><%= link_to "Create new post", new_post_path, class: 'btn btn-success' unless is_auth?%><p></br>
       
         <p><%= link_to "My Account", new_account_session_path unless account_signed_in? %></p>
 
         <%= render "categories/category_sidebar" if controller.controller_name == "categories" %>
 
-      <% if is_home? %>
-      <div class= "nav-pages">
+      <% if is_home? || is_auth? %>
+      <div class= "nav-pages mt-5">
        <p> <%= link_to "help, faqs, abuse, legal", faqs_path%></p>
        <p> <%= link_to "avoid scams and fraud", scams_path%></p>
        <p> <%= link_to "personal safety tips", safety_path%></p>
@@ -36,9 +35,16 @@
       <% end %>
 
         </div>
-    <div class="main-right">
+    <div class="col-9">
+        <header class="header d-flex align-items-center bg-light shadow-sm">
+    <%= render "layouts/breadcrumb_nav"%>
+    </header>
     <%= yield %>
         </div>
     </div>
+    </div>
+      <%= flash_notifications %>
+      <%end%>
+
   </body>
 </html>

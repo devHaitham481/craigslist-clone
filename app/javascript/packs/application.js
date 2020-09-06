@@ -1,11 +1,51 @@
+
 // This file is automatically compiled by Webpack, along with any other files
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
+import './src/bootstrap.scss'
+
+import 'bootstrap'
 
 require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
+
+
+import 'bootstrap'
+
+document.addEventListener("turbolinks:load", () => {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+import toastr from 'toastr';
+toastr.options = {
+    progressBar: true
+}
+global.toastr = toastr;
+
+import './src/toastr.scss'
+import './src/posts.js'
+$(function(){
+    $("#show_contact_form").on("click",function(e){
+        e.preventDefault();
+        console.log("test");
+        $("#show_contact_form").show();
+        return false;
+    });
+});
+ form = document.getElementById("#show_contact_form");
+ form.addEventListener("click", function(e){
+    console.log("test");
+
+    e.preventDefault();
+    form.style.visibility = "visible";
+ })
+
+//require("@rails/ujs").start()
+//require("turbolinks").start()
+//require("@rails/activestorage").start()
+//require("channels")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

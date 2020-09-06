@@ -1,11 +1,41 @@
-<a href= "javascript:document.print()" class="print-post">Print</a>
-<a href="#"> Reply </a>
+<a href= "javascript:document.print()" class="print-post btn btn-secondary btn-sm float-right">Print</a>
 <span class="posted-at-top"> Posted <%= time_ago_in_words @post.created_at%> ago</span>
 
-<h1><%= @post.title %></h1>
+<h1 class="mt-4 mb-4 "><%= @post.title %></h1>
 <%= simple_format @post.content  %>
 
-<p class="post-meta"> 
+<%= link_to "Send message to user", "#", id: "show_contact_info",class: "btn btn-info"%>
+
+
+<p class="post-meta mt-4"> 
 <span class="post-id"> Post id:<%= @post.id.to_s %></span>
 <span class="posted-at"> Posted <%= time_ago_in_words @post.created_at%> ago</span>
 </p>
+
+
+<div id="contact-form" class = "bg-light p-3">
+<div class= "row">
+<div class= "col-sm-6">
+
+
+<%= form_tag send_enquiry_path do %>
+<% user_email = account_signed_in? ? current_account.email : nil%>
+    <%= hidden_field_tag :post_id, @post.id%>
+
+    <div class="form-group">
+    <%= label_tag :email%>
+    <%= text_field_tag :email, user_email, class: "form-control"%>
+    </div>
+
+    <div class="form-group">
+     <%= label_tag :Message%>
+    <%= text_area :message, nil,  class: "form-control"%>
+    </div>
+
+    <div class="form-group">
+    <%= submit_tag "Send message", class: "btn btn-success"%>
+    </div>
+<% end %>
+</div>
+</div>
+</div>
